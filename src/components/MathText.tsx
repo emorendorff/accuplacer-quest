@@ -39,8 +39,10 @@ function tokenize(src: string): Token[] {
   return out;
 }
 
-function renderMath(tex: string, display: boolean): string {
-  return katex.renderToString(tex, { displayMode: display, throwOnError: false, strict: false });
+function renderMath(tex: string, display: boolean, big: boolean): string {
+  // Full-size fractions are much easier to read than the default inline ones.
+  const src = big ? tex.replace(/\\[td]?frac/g, '\\dfrac') : tex;
+  return katex.renderToString(src, { displayMode: display, throwOnError: false, strict: false });
 }
 
 function Emphasis({ text }: { text: string }) {
@@ -58,7 +60,7 @@ function Emphasis({ text }: { text: string }) {
   );
 }
 
-function Inline({ src }: { src: string }) {
+function Inline({ src, big = false }: { src: string; big?: boolean }) {
   const tokens = useMemo(() => tokenize(src), [src]);
   return (
     <>
@@ -66,26 +68,34 @@ function Inline({ src }: { src: string }) {
         t.kind === 'text' ? (
           <Emphasis key={i} text={t.value} />
         ) : (
-          <span key={i} className={t.kind === 'display' ? 'math-display' : 'math'} dangerouslySetInnerHTML={{ __html: renderMath(t.value, t.kind === 'display') }} />
+          <span key={i} className={t.kind === 'display' ? 'math-display' : 'math'} dangerouslySetInnerHTML={{ __html: renderMath(t.value, t.kind === 'display', big) }} />
         ),
       )}
     </>
   );
 }
 
-function withLineBreaks(src: string): ReactNode {
+function withLineBreaks(src: string, big: boolean): ReactNode {
   const lines = src.split('\n');
   return lines.map((line, i) => (
     <Fragment key={i}>
-      <Inline src={line} />
+      <Inline src={line} big={big} />
       {i < lines.length - 1 && <br />}
     </Fragment>
   ));
 }
 
-export function MathText({ text, inline = false, vars }: { text: string; inline?: boolean; vars?: Record<string, string> }) {
+interface Props {
+  text: string;
+  inline?: boolean;
+  vars?: Record<string, string>;
+  /** Render fractions full-size. On by default: small inline fractions are hard to read. */
+  bigFractions?: boolean;
+}
+
+export function MathText({ text, inline = false, vars, bigFractions = true }: Props) {
   const src = vars ? text.replace(/\{(\w+)\}/g, (m, k) => vars[k] ?? m) : text;
-  if (inline) return <Inline src={src} />;
+  if (inline) return <Inline src={src} big={bigFractions} />;
 
   const blocks = src.trim().split(/\n\s*\n/);
   return (
@@ -93,12 +103,12 @@ export function MathText({ text, inline = false, vars }: { text: string; inline?
       {blocks.map((block, i) => {
         const lines = block.split('\n');
         if (lines.every((l) => /^\s*- /.test(l))) {
-          return <ul key={i}>{lines.map((l, j) => <li key={j}><Inline src={l.replace(/^\s*- /, '')} /></li>)}</ul>;
+          return <ul key={i}>{lines.map((l, j) => <li key={j}><Inline src={l.replace(/^\s*- /, '')} big={bigFractions} /></li>)}</ul>;
         }
         if (lines.every((l) => /^\s*\d+\. /.test(l))) {
-          return <ol key={i}>{lines.map((l, j) => <li key={j}><Inline src={l.replace(/^\s*\d+\. /, '')} /></li>)}</ol>;
+          return <ol key={i}>{lines.map((l, j) => <li key={j}><Inline src={l.replace(/^\s*\d+\. /, '')} big={bigFractions} /></li>)}</ol>;
         }
-        return <p key={i}>{withLineBreaks(block)}</p>;
+        return <p key={i}>{withLineBreaks(block, bigFractions)}</p>;
       })}
     </>
   );

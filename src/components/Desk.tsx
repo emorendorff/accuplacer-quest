@@ -9,9 +9,10 @@ interface Props {
   onReview: (ids: SkillId[]) => void;
   onCasebook: () => void;
   onSkill: (id: SkillId) => void;
+  onMockTest: () => void;
 }
 
-export function Desk({ onStory, onBoard, onReview, onCasebook, onSkill }: Props) {
+export function Desk({ onStory, onBoard, onReview, onCasebook, onSkill, onMockTest }: Props) {
   const store = useStore();
   const { save } = store;
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -19,6 +20,7 @@ export function Desk({ onStory, onBoard, onReview, onCasebook, onSkill }: Props)
   const due = dueSkills(save);
   const { earned, possible } = totalStars(save);
   const weakest = weakestSkills(save, 1)[0];
+  const lastTest = save.mockTests[save.mockTests.length - 1];
 
   return (
     <div className="desk">
@@ -77,6 +79,17 @@ export function Desk({ onStory, onBoard, onReview, onCasebook, onSkill }: Props)
           ) : (
             <p>Skills you practice come back here for review on a schedule (1 day, then 2, 4, 7…) so they stick until test day.</p>
           )}
+        </section>
+
+        <section className="tile">
+          <div className="kicker">The exam room</div>
+          {lastTest ? (
+            <h2>~{lastTest.estimate} <span className="muted">last practice test</span></h2>
+          ) : (
+            <h2>20 <span className="muted">questions</span></h2>
+          )}
+          <p>A full practice test in the real format: adaptive, no hints, every answer explained at the end.</p>
+          <button className="btn" onClick={onMockTest}>{lastTest ? 'Take another' : 'Take a practice test'}</button>
         </section>
 
         <section className="tile">

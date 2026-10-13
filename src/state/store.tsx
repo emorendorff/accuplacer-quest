@@ -18,6 +18,14 @@ export interface SaveData {
   /** Skills opened up by the story, regardless of stars. */
   unlocked: SkillId[];
   streak: { lastDay: string; days: number };
+  mockTests: MockTestRecord[];
+}
+
+export interface MockTestRecord {
+  at: number;
+  correct: number;
+  total: number;
+  estimate: number;
 }
 
 const fresh = (): SaveData => ({
@@ -29,6 +37,7 @@ const fresh = (): SaveData => ({
   clues: [],
   unlocked: ['whole-numbers'],
   streak: { lastDay: '', days: 0 },
+  mockTests: [],
 });
 
 function load(): SaveData {
@@ -60,6 +69,7 @@ interface Store {
   completeChapter(chapterId: string): void;
   addClue(id: string): void;
   unlock(ids: SkillId[]): void;
+  addMockTest(r: MockTestRecord): void;
   reset(): void;
 }
 
@@ -107,6 +117,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     completeChapter: (chapterId) => update((s) => (s.completedChapters.includes(chapterId) ? s : { ...s, completedChapters: [...s.completedChapters, chapterId] })),
     addClue: (id) => update((s) => (s.clues.includes(id) ? s : { ...s, clues: [...s.clues, id] })),
     unlock: (ids) => update((s) => ({ ...s, unlocked: [...new Set([...s.unlocked, ...ids])] })),
+    addMockTest: (r) => update((s) => ({ ...s, mockTests: [...s.mockTests, r] })),
     reset: () => setSave(fresh()),
   }), [save, update]);
 

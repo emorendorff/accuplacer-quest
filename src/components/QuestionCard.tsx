@@ -3,6 +3,8 @@ import type { Question } from '../engine/question';
 import { MathText } from './MathText';
 
 export interface AnswerResult {
+  /** Index of the chosen answer in question.choices. */
+  choice: number;
   correct: boolean;
   hintsUsed: number;
   trap?: string;
@@ -10,8 +12,11 @@ export interface AnswerResult {
 
 interface Props {
   question: Question;
-  /** practice: one shot, then the answer is revealed. story: wrong answers can be retried. */
-  mode: 'practice' | 'story';
+  /**
+   * practice: one shot, then the answer is revealed. story: wrong answers can be retried.
+   * test: one shot, no hints, no feedback; locking in moves straight on.
+   */
+  mode: 'practice' | 'story' | 'test';
   /** Called once, for the first attempt only. That's what counts toward mastery. */
   onFirstAnswer: (r: AnswerResult) => void;
   onDone: () => void;
@@ -48,9 +53,10 @@ export function QuestionCard({ question, mode, onFirstAnswer, onDone, doneLabel 
     setSubmitted(selected);
     if (!recorded) {
       setRecorded(true);
-      onFirstAnswer({ correct: choice.correct, hintsUsed: hints, trap: choice.trap });
+      onFirstAnswer({ choice: selected, correct: choice.correct, hintsUsed: hints, trap: choice.trap });
     }
     if (!choice.correct && mode === 'practice') setShowSteps(true);
+    if (mode === 'test') onDone();
   };
 
   const retry = () => {
@@ -70,7 +76,7 @@ export function QuestionCard({ question, mode, onFirstAnswer, onDone, doneLabel 
         if (finished) onDone();
         else if (retrying) retry();
         else submit();
-      } else if (k === 'h' && submitted === null && hints < question.hints.length) setHints((h) => h + 1);
+      } else if (k === 'h' && mode !== 'test' && submitted === null && hints < question.hints.length) setHints((h) => h + 1);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -117,7 +123,7 @@ export function QuestionCard({ question, mode, onFirstAnswer, onDone, doneLabel 
         </div>
       )}
 
-      {sub && (
+      {sub && mode !== 'test' && (
         <div className={`feedback ${sub.correct ? 'feedback-right' : 'feedback-wrong'}`}>
           <div className="feedback-title">{sub.correct ? 'Correct.' : mode === 'story' ? 'Not quite.' : 'Not this time.'}</div>
           <MathText text={sub.why} />
@@ -130,7 +136,7 @@ export function QuestionCard({ question, mode, onFirstAnswer, onDone, doneLabel 
         </div>
       )}
 
-      {finished && (
+      {finished && mode !== 'test' && (
         <div className="steps-toggle">
           <button className="link" onClick={() => setShowSteps((s) => !s)}>{showSteps ? 'Hide' : 'Show'} the full solution</button>
           {showSteps && (
@@ -144,16 +150,18 @@ export function QuestionCard({ question, mode, onFirstAnswer, onDone, doneLabel 
       <div className="question-actions">
         {submitted === null && (
           <>
-            <button className="btn ghost" onClick={() => setHints((h) => h + 1)} disabled={hints >= question.hints.length}>
-              {hints >= question.hints.length ? 'No more hints' : hints === 0 ? 'Hint' : 'Another hint'}
-            </button>
-            <button className="btn primary" onClick={submit} disabled={selected === null}>Lock it in</button>
+            {mode !== 'test' && (
+              <button className="btn ghost" onClick={() => setHints((h) => h + 1)} disabled={hints >= question.hints.length}>
+                {hints >= question.hints.length ? 'No more hints' : hints === 0 ? 'Hint' : 'Another hint'}
+              </button>
+            )}
+            <button className="btn primary" onClick={submit} disabled={selected === null}>{mode === 'test' ? 'Next question' : 'Lock it in'}</button>
           </>
         )}
         {retrying && <button className="btn primary" onClick={retry}>Try again</button>}
-        {finished && <button className="btn primary" onClick={onDone}>{doneLabel} →</button>}
+        {finished && mode !== 'test' && <button className="btn primary" onClick={onDone}>{doneLabel} →</button>}
       </div>
-      <div className="kbd-help">Keys: 1–4 to pick · Enter to confirm · H for a hint</div>
+      <div className="kbd-help">Keys: 1–4 to pick · Enter to confirm{mode !== 'test' && ' · H for a hint'}</div>
     </div>
   );
 }

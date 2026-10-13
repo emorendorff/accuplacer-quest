@@ -3,6 +3,7 @@ import { Casebook } from './components/Casebook';
 import { Desk } from './components/Desk';
 import { EvidenceBoard } from './components/EvidenceBoard';
 import { Intro } from './components/Intro';
+import { MockTest } from './components/MockTest';
 import { PracticeSession } from './components/PracticeSession';
 import { SkillDetail } from './components/SkillDetail';
 import { StoryPlayer } from './components/StoryPlayer';
@@ -17,7 +18,8 @@ type Screen =
   | { name: 'board' }
   | { name: 'skill'; id: SkillId }
   | { name: 'practice'; ids: SkillId[]; title: string; back: Screen }
-  | { name: 'casebook' };
+  | { name: 'casebook' }
+  | { name: 'mock' };
 
 export function App() {
   const { save } = useStore();
@@ -38,6 +40,7 @@ export function App() {
           onReview={(ids) => go({ name: 'practice', ids, title: 'Cold cases', back: { name: 'desk' } })}
           onCasebook={() => go({ name: 'casebook' })}
           onSkill={(id) => go({ name: 'skill', id })}
+          onMockTest={() => go({ name: 'mock' })}
         />
       )}
       {screen.name === 'story' && (
@@ -53,6 +56,7 @@ export function App() {
       )}
       {screen.name === 'practice' && <PracticeSession title={screen.title} skillIds={screen.ids} length={8} onExit={() => go(screen.back)} />}
       {screen.name === 'casebook' && <Casebook onBack={() => go({ name: 'desk' })} />}
+      {screen.name === 'mock' && <MockTest onExit={() => go({ name: 'desk' })} onPractice={(id) => go({ name: 'skill', id })} />}
     </main>
   );
 }

@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { add, div, frac, mul, sub, tex } from './fraction';
 import { applyAnswer, emptyProgress, scheduleReview, stars } from './mastery';
+import { estimateScore, nextDifficulty, planSkills } from './mockTest';
+import type { SkillId } from './question';
+import { createRng } from './rng';
 
 describe('fractions', () => {
   it('reduces and keeps the sign on top', () => {
@@ -45,5 +48,33 @@ describe('mastery', () => {
     expect(good.box).toBe(1);
     const bad = scheduleReview(good, 0.4, 0);
     expect(bad.box).toBe(0);
+  });
+});
+
+describe('practice test', () => {
+  const skills = ['a', 'b', 'c', 'd', 'e', 'f', 'g'] as unknown as SkillId[];
+
+  it('covers every skill at least twice with no back-to-back repeats', () => {
+    for (let seed = 1; seed < 50; seed++) {
+      const plan = planSkills(createRng(seed), skills);
+      expect(plan).toHaveLength(20);
+      for (const s of skills) expect(plan.filter((p) => p === s).length).toBeGreaterThanOrEqual(2);
+      expect(plan.every((s, i) => i === 0 || s !== plan[i - 1])).toBe(true);
+    }
+  });
+
+  it('moves difficulty up after right answers and down after wrong ones, within 1–3', () => {
+    expect(nextDifficulty(2, true)).toBe(3);
+    expect(nextDifficulty(3, true)).toBe(3);
+    expect(nextDifficulty(2, false)).toBe(1);
+    expect(nextDifficulty(1, false)).toBe(1);
+  });
+
+  it('maps all-wrong to 200 and all-right-at-the-top to 300', () => {
+    const wrong = Array.from({ length: 20 }, () => ({ correct: false, difficulty: 1 as const }));
+    expect(estimateScore(wrong).estimate).toBe(200);
+    const right = [{ correct: true, difficulty: 2 as const }, ...Array.from({ length: 19 }, () => ({ correct: true, difficulty: 3 as const }))];
+    expect(estimateScore(right).estimate).toBe(300);
+    expect(estimateScore(right).high).toBe(300);
   });
 });
