@@ -6,18 +6,33 @@ You're an obituary writer who gave up on math years ago. A homicide detective ne
 
 ## Running it
 
-You need **Node.js 18 or newer**. If you don't have it, install the "LTS" version from [nodejs.org](https://nodejs.org).
+You need **Node.js 22.12 or newer**. If you don't have it, install the "LTS" version from [nodejs.org](https://nodejs.org).
 
 ```bash
 git clone <this repo's URL>
 cd accuplacer-quest
 npm install
+```
+
+### As a Mac app (recommended)
+
+```bash
+npm run app:install
+```
+
+This builds **Numbers Don't Lie.app**, copies it into Applications, and opens it. From then on it's a normal app: open it from Launchpad or Spotlight, or right-click its Dock icon → **Options → Keep in Dock**. No Terminal needed.
+
+- Progress is saved inside the app (in `~/Library/Application Support/Numbers Don't Lie/`), so it survives quitting, restarts and app updates.
+- To update after pulling new changes: `git pull`, then `npm run app:install` again. Progress is kept.
+- Build the app **on the Mac that will run it**. An app built on one Mac and copied to another gets flagged by macOS as "from an unidentified developer." If that happens, right-click the app → **Open** → **Open** once, and it's fine from then on.
+
+### In a browser
+
+```bash
 npm run dev
 ```
 
-The game opens in your browser at http://localhost:5173. To play again later, just `cd` into the folder and run `npm run dev`.
-
-**Your progress is saved in the browser**, so use the same browser each time, and don't clear its site data for `localhost`.
+The game opens at http://localhost:5173. Progress is saved in that browser, separately from the app's.
 
 ## How to use it
 
@@ -39,7 +54,7 @@ The game opens in your browser at http://localhost:5173. To play again later, ju
 
 ## For developers
 
-Vite + React + TypeScript, KaTeX for math. No backend; state lives in `localStorage`.
+Vite + React + TypeScript, KaTeX for math. No backend; state lives in `localStorage`. The Mac app is an Electron wrapper around the same build.
 
 ```
 src/
@@ -48,7 +63,12 @@ src/
   content/story/   chapters as lists of "beats" (narration, dialogue, puzzles, clues…)
   components/      UI
   state/store.tsx  save data
+electron/main.cjs  the desktop app: one window, serving dist/ from a private app:// scheme
+build/             app icon (icon.svg is the source; `npx electron scripts/render-icon.cjs` re-renders icon.png)
 ```
+
+- `npm run app:dev` builds and opens the game in Electron without packaging it. For hot reload, run `npm run dev` in one terminal and `ELECTRON_DEV_URL=http://localhost:5173 npx electron .` in another.
+- `npm run app:build` packages the app into `release/` without installing it.
 
 - `npm test` runs the test suite: every generator produces 1,200 well-formed questions (exactly one right answer, four distinct choices, balanced math), and every story puzzle is checked the same way.
 - **Adding a skill:** create `src/content/skills/<name>.ts` exporting a `Skill` with a `lesson` and a `generate` function, then register it in `src/content/skills/index.ts`. The Act II skills are already there as "sealed" placeholders.

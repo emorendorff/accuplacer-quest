@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a241c"/>
+      <stop offset="1" stop-color="#121110"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.42" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#e0a94a" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#e0a94a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lens" cx="0.4" cy="0.35" r="0.7">
+      <stop offset="0" stop-color="#3a3025"/>
+      <stop offset="1" stop-color="#1b1712"/>
+    </radialGradient>
+  </defs>
+  <!-- macOS-style rounded square, inset to leave room for the Dock's shadow -->
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#bg)"/>
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#glow)"/>
+  <rect x="104" y="104" width="816" height="816" rx="181" fill="none" stroke="#e0a94a" stroke-opacity="0.35" stroke-width="6"/>
+  <!-- magnifying glass -->
+  <line x1="610" y1="610" x2="790" y2="790" stroke="#a87a2e" stroke-width="64" stroke-linecap="round"/>
+  <line x1="610" y1="610" x2="790" y2="790" stroke="#e0a94a" stroke-width="40" stroke-linecap="round"/>
+  <circle cx="460" cy="455" r="225" fill="url(#lens)" stroke="#e0a94a" stroke-width="34"/>
+  <!-- the unknown -->
+  <text x="458" y="545" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="300" fill="#efe7d4">x</text>
+</svg>

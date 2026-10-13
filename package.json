@@ -1,31 +1,55 @@
 {
   "name": "numbers-dont-lie",
+  "productName": "Numbers Don't Lie",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "description": "A noir detective game that teaches the math on the Accuplacer placement test.",
+  "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite --open",
     "build": "tsc -b && vite build",
     "preview": "vite preview --open",
     "test": "vitest run",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc -b",
+    "app:dev": "npm run build && electron .",
+    "app:build": "npm run build && electron-builder --mac --dir",
+    "app:install": "npm run app:build && sh scripts/install-mac.sh"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22.12"
   },
-  "dependencies": {
-    "@fontsource/crimson-pro": "^5.1.0",
-    "@fontsource/special-elite": "^5.1.0",
-    "katex": "^0.16.11",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+  "build": {
+    "appId": "com.numbersdontlie.game",
+    "productName": "Numbers Don't Lie",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.education",
+      "icon": "build/icon.png",
+      "identity": "-",
+      "hardenedRuntime": false
+    }
   },
   "devDependencies": {
+    "@fontsource/crimson-pro": "^5.1.0",
+    "@fontsource/special-elite": "^5.1.0",
     "@types/katex": "^0.16.7",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
+    "electron": "44.4.5",
+    "electron-builder": "26.16.1",
+    "katex": "^0.16.11",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "typescript": "^5.6.3",
     "vite": "^5.4.10",
     "vitest": "^2.1.4"
