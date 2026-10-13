@@ -1,0 +1,33 @@
+{
+  "name": "numbers-dont-lie",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A noir detective game that teaches the math on the Accuplacer placement test.",
+  "scripts": {
+    "dev": "vite --open",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --open",
+    "test": "vitest run",
+    "typecheck": "tsc -b"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@fontsource/crimson-pro": "^5.1.0",
+    "@fontsource/special-elite": "^5.1.0",
+    "katex": "^0.16.11",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.7",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.4"
+  }
+}
