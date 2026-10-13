@@ -1,6 +1,6 @@
 import type { Difficulty, Option, SkillId } from '../../engine/question';
 
-export type CharacterId = 'you' | 'vance' | 'finch' | 'desmond' | 'halloway' | 'crane' | 'lark' | 'weiss';
+export type CharacterId = 'you' | 'vance' | 'finch' | 'desmond' | 'halloway' | 'crane' | 'lark' | 'weiss' | 'ashby' | 'simmons' | 'rourke' | 'avery';
 
 export interface Puzzle {
   skillId: SkillId;
@@ -19,6 +19,8 @@ export interface Puzzle {
 export type Beat =
   | { type: 'scene'; title: string; place: string }
   | { type: 'narration'; text: string }
+  /** A quoted letter, contract clause, etc., shown typed on paper. */
+  | { type: 'document'; text: string }
   | { type: 'line'; who: CharacterId; text: string }
   | { type: 'notebook'; skillId: SkillId; text: string }
   | { type: 'puzzle'; puzzle: Puzzle }

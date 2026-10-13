@@ -1,10 +1,14 @@
 import type { SkillId } from '../../engine/question';
 import { decimals } from './decimals';
+import { expressions } from './expressions';
 import { fractionAddSub } from './fractionAddSub';
 import { fractionBasics } from './fractionBasics';
 import { fractionMulDiv } from './fractionMulDiv';
+import { linearEquations } from './linearEquations';
 import { numberSense } from './numberSense';
 import { percents } from './percents';
+import { ratios } from './ratios';
+import { signedNumbers } from './signedNumbers';
 import type { Skill } from './types';
 import { wholeNumbers } from './wholeNumbers';
 
@@ -24,14 +28,15 @@ export const SKILLS: Skill[] = [
   decimals,
   percents,
   numberSense,
-  sealed('ratios', 'Ratios & Proportions', 'The Smuggler\'s Scale', ['percents', 'fraction-muldiv'], 90, 22),
-  sealed('exponents', 'Exponents & Roots', 'The Compound Interest', ['whole-numbers'], 90, 44),
-  sealed('expressions', 'Algebraic Expressions', 'The Coded Letter', ['whole-numbers', 'fraction-addsub'], 108, 12),
-  sealed('linear-equations', 'Linear Equations', 'Solving for X', ['expressions'], 126, 22),
-  sealed('linear-graphs', 'Lines & Graphs', 'The Map Room', ['linear-equations'], 144, 34),
-  sealed('statistics', 'Statistics', 'The Alibi Averages', ['decimals', 'percents'], 108, 70),
-  sealed('probability', 'Probability', 'The Card Game', ['fraction-basics', 'percents'], 126, 82),
-  sealed('geometry', 'Geometry', 'The Scene of the Crime', ['exponents'], 144, 58),
+  signedNumbers,
+  expressions,
+  linearEquations,
+  ratios,
+  sealed('exponents', 'Exponents & Roots', 'The Compound Interest', ['signed-numbers'], 92, 82),
+  sealed('linear-graphs', 'Lines & Graphs', 'The Map Room', ['linear-equations'], 146, 36),
+  sealed('statistics', 'Statistics', 'The Alibi Averages', ['decimals', 'percents'], 110, 66),
+  sealed('probability', 'Probability', 'The Card Game', ['fraction-basics', 'percents'], 128, 86),
+  sealed('geometry', 'Geometry', 'The Scene of the Crime', ['exponents'], 146, 66),
 ];
 
 export const skillById = Object.fromEntries(SKILLS.map((s) => [s.id, s])) as Record<SkillId, Skill>;

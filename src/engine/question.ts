@@ -13,7 +13,8 @@ export type SkillId =
   | 'decimals'
   | 'percents'
   | 'number-sense'
-  // Act 2 (Quantitative Reasoning, Algebra & Statistics) — not built yet.
+  // Act 2: Quantitative Reasoning, Algebra & Statistics.
+  | 'signed-numbers'
   | 'ratios'
   | 'exponents'
   | 'expressions'

@@ -23,3 +23,11 @@ export function money(x: number): string {
 
 /** Inline-math wrapper for prose strings. */
 export const m = (texSrc: string) => `$${texSrc}$`;
+
+/** TeX for ax + b, written the way a person would: "x", "-x", "3x - 5", "7". */
+export function linear(a: number, b: number, v = 'x'): string {
+  const parts: string[] = [];
+  if (a !== 0) parts.push(a === 1 ? v : a === -1 ? `-${v}` : `${a}${v}`);
+  if (b !== 0 || parts.length === 0) parts.push(parts.length === 0 ? `${b}` : b < 0 ? `- ${-b}` : `+ ${b}`);
+  return parts.join(' ');
+}

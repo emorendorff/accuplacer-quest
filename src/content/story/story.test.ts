@@ -8,10 +8,15 @@ import type { Beat } from './types';
 /** Every unescaped $ must be paired. Escaped \$ is a literal dollar sign. */
 const balanced = (s: string) => s.replace(/\\\$/g, '').replace(/\$\$/g, '').split('$').length % 2 === 1;
 
+/** Italic *markers* can't span math, so outside of math they must pair up within each text run. */
+const italicsPair = (s: string) =>
+  s.replace(/\\\$/g, '').split('$').filter((_, i) => i % 2 === 0)
+    .every((run) => (run.replace(/\*\*/g, '').match(/\*/g) ?? []).length % 2 === 0);
+
 function texts(beat: Beat): string[] {
   switch (beat.type) {
     case 'scene': return [beat.title, beat.place];
-    case 'narration': case 'line': case 'notebook': case 'drill': return [beat.text];
+    case 'narration': case 'document': case 'line': case 'notebook': case 'drill': return [beat.text];
     case 'clue': return [beat.title, beat.text];
     case 'deduction': return [beat.prompt, ...beat.options.flatMap((o) => [o.label, o.response])];
     case 'puzzle': {
@@ -25,6 +30,10 @@ function texts(beat: Beat): string[] {
 describe.each(CHAPTERS.map((c) => [c.id, c] as const))('chapter %s', (_id, chapter) => {
   it('has balanced math in every piece of text', () => {
     for (const beat of chapter.beats) for (const t of texts(beat)) expect(balanced(t), t).toBe(true);
+  });
+
+  it('never wraps italics around math', () => {
+    for (const beat of chapter.beats) for (const t of texts(beat)) expect(italicsPair(t), t).toBe(true);
   });
 
   it('has puzzles with exactly one right answer and three distinct wrong ones', () => {

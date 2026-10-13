@@ -109,7 +109,7 @@ export function Desk({ onStory, onBoard, onReview, onCasebook, onSkill, onMockTe
             <li>It's <strong>adaptive</strong>: getting questions right brings harder ones. Don't panic if they get tougher; that means you're doing well.</li>
             <li>An on-screen calculator appears only on <strong>some</strong> questions. The badge on each question here mimics that.</li>
             <li>Scores run from 200 to 300. Each college sets its own cutoff for placing into credit-bearing math. Ask your college's testing office for theirs.</li>
-            <li>This game covers <strong>Arithmetic</strong> now; <strong>Quantitative Reasoning, Algebra &amp; Statistics</strong> is Act 2.</li>
+            <li>Act I covers <strong>Arithmetic</strong>. Act II covers <strong>Quantitative Reasoning, Algebra &amp; Statistics</strong>: negatives, expressions, equations and ratios are playable now; graphs, statistics, probability, geometry and exponents are coming.</li>
           </ul>
         )}
       </section>

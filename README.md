@@ -34,7 +34,8 @@ The game opens in your browser at http://localhost:5173. To play again later, ju
 | | Section | Status |
 |---|---|---|
 | Act I | **Arithmetic**: order of operations, fractions, decimals, percents, comparing & converting | Playable: all 7 skills, story Cases 1–2, practice test |
-| Act II | **Quantitative Reasoning, Algebra & Statistics**: ratios, exponents, expressions, linear equations, graphs, statistics, probability, geometry | Coming soon |
+| Act II | **Quantitative Reasoning, Algebra & Statistics**: negative numbers, expressions, equations & inequalities, ratios | Playable: 4 skills, story Case 3 |
+| | graphs, statistics, probability, geometry, exponents | Coming next (Case 4) |
 
 ## For developers
 

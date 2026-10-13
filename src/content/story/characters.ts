@@ -9,4 +9,8 @@ export const CHARACTERS: Record<CharacterId, { name: string; role: string }> = {
   crane: { name: 'Silas Crane', role: 'Agent, Bulwark Mutual Assurance' },
   lark: { name: 'Vivian Lark', role: 'Singer, the Sea Breeze Club, Myrtle Beach' },
   weiss: { name: 'Dr. Otto Weiss', role: 'Coroner, Charleston' },
+  ashby: { name: 'Councilman Ashby', role: 'Charleston City Council' },
+  simmons: { name: 'Odette Simmons', role: "Councilman Ashby's secretary" },
+  rourke: { name: 'Capt. Eli Rourke', role: 'Charleston harbor pilot' },
+  avery: { name: 'Prof. Julian Avery', role: 'Mathematics tutor, Wentworth Street' },
 };

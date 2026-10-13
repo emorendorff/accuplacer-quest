@@ -92,7 +92,7 @@ const beneficiary: Chapter = {
     { type: 'line', who: 'crane', text: "Silas Crane, ma'am. A terrible thing about Mr. Pryce. A careful man, very careful. I'm afraid I can only discuss the policy with its beneficiaries, Detective." },
     { type: 'line', who: 'vance', text: 'Then you can discuss it with a judge this afternoon. Or with me, now, nicely. I drove four hours, Mr. Crane. I\'d pick nicely.' },
     { type: 'narration', text: 'Crane smiles thinly and lays the policy on the counter. The payout clause reads:' },
-    { type: 'narration', text: '*The benefit of $\\$15{,}000$ shall be paid as follows: $\\frac{2}{3}$ to the Palmetto Benevolent Fund; of the remainder, $\\frac{1}{2}$ to Desmond Pryce, and the balance to Mrs. Ada Finch.*' },
+    { type: 'document', text: 'The benefit of $\\$15{,}000$ shall be paid as follows: $\\frac{2}{3}$ to the Palmetto Benevolent Fund; of the remainder, $\\frac{1}{2}$ to Desmond Pryce, and the balance to Mrs. Ada Finch.' },
     { type: 'notebook', skillId: 'fraction-muldiv', text: 'Vance mutters, "*Of* the remainder." Her notes: **Multiplying & Dividing Fractions.**' },
     {
       type: 'puzzle',

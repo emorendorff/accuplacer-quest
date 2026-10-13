@@ -175,6 +175,8 @@ function BeatView({ beat, live, vars, onOpenNotebook, onResolved }: BeatProps) {
       );
     case 'narration':
       return <div className="beat-narration"><MathText text={beat.text} vars={vars} /></div>;
+    case 'document':
+      return <div className="beat-document"><MathText text={beat.text} vars={vars} /></div>;
     case 'line': {
       const who = CHARACTERS[beat.who];
       return (

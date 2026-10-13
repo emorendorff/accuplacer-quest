@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { add, div, frac, mul, sub, tex } from './fraction';
+import { linear } from './format';
 import { applyAnswer, emptyProgress, scheduleReview, stars } from './mastery';
 import { estimateScore, nextDifficulty, planSkills } from './mockTest';
 import type { SkillId } from './question';
@@ -76,5 +77,15 @@ describe('practice test', () => {
     const right = [{ correct: true, difficulty: 2 as const }, ...Array.from({ length: 19 }, () => ({ correct: true, difficulty: 3 as const }))];
     expect(estimateScore(right).estimate).toBe(300);
     expect(estimateScore(right).high).toBe(300);
+  });
+});
+
+describe('linear', () => {
+  it('writes expressions the way a person would', () => {
+    expect(linear(3, -5)).toBe('3x - 5');
+    expect(linear(1, 4)).toBe('x + 4');
+    expect(linear(-1, 0)).toBe('-x');
+    expect(linear(0, 7)).toBe('7');
+    expect(linear(0, 0)).toBe('0');
   });
 });
