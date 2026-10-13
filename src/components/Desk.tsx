@@ -25,7 +25,7 @@ export function Desk({ onStory, onBoard, onReview, onCasebook, onSkill, onMockTe
   return (
     <div className="desk">
       <header className="masthead">
-        <div className="kicker">A Port Halcyon Mystery</div>
+        <div className="kicker">A Lowcountry Mystery</div>
         <h1>Numbers Don't Lie</h1>
         <div className="muted">{Object.keys(save.skills).length ? 'Welcome back' : 'Welcome'}, {save.name}. {save.streak.days > 1 ? `${save.streak.days}-day streak. Vance is impressed.` : 'The city never sleeps, and neither does crime.'}</div>
       </header>

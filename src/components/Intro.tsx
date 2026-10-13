@@ -7,10 +7,10 @@ export function Intro() {
 
   return (
     <div className="intro">
-      <div className="kicker">A Port Halcyon Mystery</div>
+      <div className="kicker">A Lowcountry Mystery</div>
       <h1>Numbers Don't Lie</h1>
       <p className="intro-lede">
-        Port Halcyon, 1947. You write obituaries for the <em>Herald</em>. You're good with words and you gave up on numbers a long time ago.
+        Charleston, South Carolina, 1947. You write obituaries for the <em>Lowcountry Herald</em>. You're good with words and you gave up on numbers a long time ago.
         Tonight, a homicide detective is about to drop a dead man's ledger on your desk.
       </p>
       <div className="intro-how">

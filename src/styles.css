@@ -105,7 +105,8 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--amber); out
 /* Story ----------------------------------------------------------------- */
 .story-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; gap: 12px; flex-wrap: wrap; }
 .story-log { display: flex; flex-direction: column; gap: 18px; }
-.story-log > * { animation: fade-in 0.35s ease-out; }
+.beat { animation: fade-in 0.4s ease-out both; scroll-margin-top: 24px; }
+.beat:empty { display: none; }
 @keyframes fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
 .beat-scene { text-align: center; padding: 24px 0 8px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
@@ -300,3 +301,4 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--amber); out
 @media (max-width: 720px) {
   .score-band { flex-direction: column; align-items: flex-start; }
 }
+.solved-answer { color: var(--green); white-space: nowrap; }

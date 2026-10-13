@@ -25,7 +25,9 @@ export type Beat =
   | { type: 'drill'; skillId: SkillId; count: number; difficulty?: Difficulty; text: string }
   | { type: 'clue'; id: string; title: string; text: string }
   | { type: 'deduction'; prompt: string; options: { label: string; correct: boolean; response: string }[] }
-  | { type: 'unlock'; skillIds: SkillId[] };
+  | { type: 'unlock'; skillIds: SkillId[] }
+  /** A dramatic pause: the story waits for Continue here. */
+  | { type: 'break' };
 
 export interface Chapter {
   id: string;

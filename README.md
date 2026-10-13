@@ -1,6 +1,6 @@
 # Numbers Don't Lie
 
-*A Port Halcyon Mystery*: a noir detective game that teaches the math on the **Accuplacer** college placement test.
+*A Lowcountry Mystery*: a noir detective game set in 1947 South Carolina (Charleston, Greenville, Myrtle Beach), that teaches the math on the **Accuplacer** college placement test.
 
 You're an obituary writer who gave up on math years ago. A homicide detective needs someone who reads carefully, and the dead man's ledger is full of numbers. Every chapter hinges on a piece of math, explained in plain English before you need it. Every wrong answer tells you *which trap* you fell into, and the real test sets the same traps.
 

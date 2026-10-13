@@ -18,7 +18,7 @@ function texts(beat: Beat): string[] {
       const p = beat.puzzle;
       return [p.prompt, p.answer.text, p.answer.why, ...p.distractors.flatMap((d) => [d.text, d.why]), ...p.hints, ...p.steps];
     }
-    case 'unlock': return [];
+    case 'unlock': case 'break': return [];
   }
 }
 

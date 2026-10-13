@@ -10,6 +10,16 @@ import { Notebook } from './Notebook';
 import { QuestionCard, type AnswerResult } from './QuestionCard';
 
 const INTERACTIVE: Beat['type'][] = ['puzzle', 'drill', 'deduction'];
+/** Beats where the story waits for the player. Everything between stops is revealed in one go. */
+const STOPS: Beat['type'][] = [...INTERACTIVE, 'notebook', 'break'];
+/** Delay between lines as a newly revealed passage cascades in. */
+const CASCADE_MS = 160;
+
+/** Index of the last beat to reveal when the story continues from `from`. */
+function chunkEnd(beats: Beat[], from: number): number {
+  for (let i = from; i < beats.length; i++) if (STOPS.includes(beats[i].type)) return i;
+  return beats.length - 1;
+}
 
 interface Props {
   chapter: Chapter;
@@ -19,29 +29,49 @@ interface Props {
 
 export function StoryPlayer({ chapter, onExit, onOpenChapter }: Props) {
   const store = useStore();
-  const [pos, setPos] = useState(() => Math.min(store.save.storyPosition[chapter.id] ?? 0, chapter.beats.length - 1));
+  const { beats } = chapter;
+  const [pos, setPos] = useState(() => {
+    const saved = store.save.storyPosition[chapter.id];
+    return saved === undefined ? chunkEnd(beats, 0) : Math.min(saved, beats.length - 1);
+  });
+  // First beat of the passage being revealed right now (for the cascade and scrolling).
+  const [revealFrom, setRevealFrom] = useState(() => (store.save.storyPosition[chapter.id] === undefined ? 0 : pos + 1));
   const [notebook, setNotebook] = useState<Beat & { type: 'notebook' } | null>(null);
-  const endRef = useRef<HTMLDivElement>(null);
+  const applied = useRef(-1);
   const vars = { name: store.save.name || 'Writer' };
 
-  const current = chapter.beats[pos];
-  const atEnd = pos >= chapter.beats.length - 1;
+  const current = beats[pos];
+  const atEnd = pos >= beats.length - 1;
   const blocking = INTERACTIVE.includes(current.type);
 
-  // Side effects of reaching a beat.
+  // Side effects of every newly revealed beat.
   useEffect(() => {
-    store.setStoryPosition(chapter.id, pos);
-    if (current.type === 'clue') store.addClue(current.id);
-    if (current.type === 'unlock') store.unlock(current.skillIds);
-    // Open the notes automatically the first time this beat is reached.
-    if (current.type === 'notebook' && pos > (store.save.storyPosition[chapter.id] ?? -1)) {
-      setNotebook(current);
+    for (let i = applied.current + 1; i <= pos; i++) {
+      const b = beats[i];
+      if (b.type === 'clue') store.addClue(b.id);
+      if (b.type === 'unlock') store.unlock(b.skillIds);
     }
+    applied.current = pos;
+    store.setStoryPosition(chapter.id, pos);
     if (atEnd && !blocking) store.completeChapter(chapter.id);
-    endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    if (revealFrom > 0) {
+      document.querySelector(`[data-beat="${revealFrom}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, [pos, chapter.id]);
 
-  const advance = () => setPos((p) => Math.min(p + 1, chapter.beats.length - 1));
+  const advance = () => {
+    setRevealFrom(pos + 1);
+    setPos(chunkEnd(beats, pos + 1));
+  };
+
+  // When the story stops at a notebook, the next step is reading it; closing it moves on.
+  const atNotebook = current.type === 'notebook' && !atEnd;
+  const openNotes = () => atNotebook && setNotebook(current);
+  const closeNotebook = () => {
+    const wasGate = notebook === current && atNotebook;
+    setNotebook(null);
+    if (wasGate) advance();
+  };
 
   // Space or Enter moves the story along when nothing needs answering.
   useEffect(() => {
@@ -49,7 +79,8 @@ export function StoryPlayer({ chapter, onExit, onOpenChapter }: Props) {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
-        advance();
+        if (atNotebook) openNotes();
+        else advance();
       }
     };
     window.addEventListener('keydown', onKey);
@@ -58,6 +89,7 @@ export function StoryPlayer({ chapter, onExit, onOpenChapter }: Props) {
 
   const nextChapter = CHAPTERS[CHAPTERS.indexOf(chapter) + 1];
   const chapterDone = atEnd && !blocking;
+  const cascadeLength = Math.max(0, pos - revealFrom + 1);
 
   return (
     <div className="story">
@@ -67,22 +99,31 @@ export function StoryPlayer({ chapter, onExit, onOpenChapter }: Props) {
       </div>
 
       <div className="story-log">
-        {chapter.beats.slice(0, pos + 1).map((beat, i) => (
-          <BeatView
+        {beats.slice(0, pos + 1).map((beat, i) => (
+          <div
             key={i}
-            beat={beat}
-            live={i === pos}
-            vars={vars}
-            onOpenNotebook={(b) => setNotebook(b)}
-            onResolved={advance}
-          />
+            data-beat={i}
+            className="beat"
+            style={i >= revealFrom ? { animationDelay: `${(i - revealFrom) * CASCADE_MS}ms` } : undefined}
+          >
+            <BeatView beat={beat} live={i === pos} vars={vars} onOpenNotebook={(b) => setNotebook(b)} onResolved={advance} />
+          </div>
         ))}
       </div>
 
       {!blocking && !chapterDone && (
-        <div className="story-continue">
-          <button className="btn primary" onClick={advance}>Continue</button>
-          <span className="muted small">or press Space</span>
+        <div className="story-continue beat" style={{ animationDelay: `${cascadeLength * CASCADE_MS}ms` }} key={`continue-${pos}`}>
+          {atNotebook ? (
+            <>
+              <button className="btn primary" onClick={openNotes}>Read Vance's notes</button>
+              <button className="link small muted" onClick={advance}>Skip for now</button>
+            </>
+          ) : (
+            <>
+              <button className="btn primary" onClick={advance}>Continue</button>
+              <span className="muted small">or press Space</span>
+            </>
+          )}
         </div>
       )}
 
@@ -92,7 +133,7 @@ export function StoryPlayer({ chapter, onExit, onOpenChapter }: Props) {
           <h2>{chapter.title}: closed</h2>
           {nextChapter ? (
             <>
-              <p>Next: <strong>Chapter {nextChapter.number}: {nextChapter.title}</strong>. Before you go on, an interrogation on the evidence board will lock in what you just learned.</p>
+              <p>Next: {nextChapter.caseTitle !== chapter.caseTitle && <>{nextChapter.caseTitle}, </>}<strong>Chapter {nextChapter.number}: {nextChapter.title}</strong>. Before you go on, an interrogation on the evidence board will lock in what you just learned.</p>
               <div className="row">
                 <button className="btn ghost" onClick={onExit}>Back to your desk</button>
                 <button className="btn primary" onClick={() => onOpenChapter(nextChapter)}>Next chapter →</button>
@@ -107,9 +148,8 @@ export function StoryPlayer({ chapter, onExit, onOpenChapter }: Props) {
           )}
         </div>
       )}
-      <div ref={endRef} />
 
-      {notebook && <Notebook skillId={notebook.skillId} onClose={() => setNotebook(null)} />}
+      {notebook && <Notebook skillId={notebook.skillId} onClose={closeNotebook} />}
     </div>
   );
 }
@@ -124,6 +164,8 @@ interface BeatProps {
 
 function BeatView({ beat, live, vars, onOpenNotebook, onResolved }: BeatProps) {
   switch (beat.type) {
+    case 'break':
+      return null;
     case 'scene':
       return (
         <div className="beat-scene">
@@ -146,7 +188,7 @@ function BeatView({ beat, live, vars, onOpenNotebook, onResolved }: BeatProps) {
       return (
         <div className="beat-notebook">
           <span><MathText text={beat.text} vars={vars} inline /></span>
-          <button className="btn small" onClick={() => onOpenNotebook(beat)}>Read the notes</button>
+          {!live && <button className="btn small" onClick={() => onOpenNotebook(beat)}>Read the notes</button>}
         </div>
       );
     case 'clue':
@@ -163,7 +205,7 @@ function BeatView({ beat, live, vars, onOpenNotebook, onResolved }: BeatProps) {
         </div>
       );
     case 'puzzle':
-      return live ? <PuzzleBeat puzzle={beat.puzzle} onResolved={onResolved} /> : <SolvedBeat prompt={beat.puzzle.prompt} />;
+      return live ? <PuzzleBeat puzzle={beat.puzzle} onResolved={onResolved} /> : <SolvedBeat prompt={beat.puzzle.prompt} answer={beat.puzzle.answer.text} />;
     case 'drill':
       return live ? <DrillBeat beat={beat} onResolved={onResolved} /> : <SolvedBeat prompt={beat.text} />;
     case 'deduction':
@@ -171,10 +213,11 @@ function BeatView({ beat, live, vars, onOpenNotebook, onResolved }: BeatProps) {
   }
 }
 
-function SolvedBeat({ prompt }: { prompt: string }) {
+function SolvedBeat({ prompt, answer }: { prompt: string; answer?: string }) {
   return (
     <div className="beat-solved">
-      <span className="check">✓</span> <MathText text={prompt.split('\n')[0]} inline />
+      <span className="check">✓</span> <MathText text={prompt.replace(/\s*\n+\s*/g, ' ')} inline bigFractions={false} />
+      {answer && <> <span className="solved-answer">→ <MathText text={answer} inline bigFractions={false} /></span></>}
     </div>
   );
 }

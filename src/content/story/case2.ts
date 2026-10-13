@@ -9,12 +9,12 @@ const nightOwl: Chapter = {
   title: 'The Night Owl',
   skills: ['decimals'],
   beats: [
-    { type: 'scene', title: 'The Night Owl', place: 'Blue Moon Diner, Harbor Street · Saturday, 2:10 a.m.' },
-    { type: 'narration', text: 'The Blue Moon never closes. Neither, apparently, does Vance. She has a booth in the back, a cup of coffee gone cold, and a manila envelope stamped BULWARK MUTUAL ASSURANCE.' },
+    { type: 'scene', title: 'The Night Owl', place: 'Blue Moon Diner, King Street, Charleston · Saturday, 2:10 a.m.' },
+    { type: 'narration', text: 'The Blue Moon never closes, and its screen door never quite shuts. Neither, apparently, does Vance. She has a booth in the back, a cup of coffee gone cold, and a manila envelope stamped BULWARK MUTUAL ASSURANCE.' },
     { type: 'line', who: 'vance', text: "Pryce's life insurance. Fifteen thousand dollars, paid out Monday. Three weeks before he died, it was five thousand." },
     { type: 'line', who: 'you', text: "Somebody tripled a man's life insurance three weeks before he died." },
     { type: 'line', who: 'vance', text: 'Somebody did. The question is who paid for it. His checkbook is in here too. Bookkeepers keep receipts the way other men keep grudges.' },
-    { type: 'narration', text: 'On the jukebox, a singer you half-recognize croons about a man who never came home. The poster by the register reads VIVIAN LARK · TONIGHT & EVERY NIGHT.' },
+    { type: 'narration', text: 'On the jukebox, a singer you half-recognize croons about a man who never came home. The poster by the register reads VIVIAN LARK · WEEKNIGHTS IN CHARLESTON, WEEKENDS AT THE SEA BREEZE CLUB, MYRTLE BEACH.' },
     { type: 'line', who: 'vance', text: "Money in this town is decimals. Dollars and cents. Line up the points, or you'll lose a fortune in the cracks." },
     { type: 'notebook', skillId: 'decimals', text: 'Vance slides over a napkin covered in her handwriting: **Decimals.**' },
     { type: 'narration', text: 'The first checkbook stub is ringed with a coffee stain.' },
@@ -69,13 +69,14 @@ const nightOwl: Chapter = {
     { type: 'line', who: 'you', text: 'So Pryce kept paying his old premium. But Bulwark received the new one. Someone was quietly topping up the difference, nine seventy-five a month, to keep the bigger policy alive.' },
     { type: 'clue', id: 'c2-premium', title: 'The premiums', text: "Pryce's policy was raised from $\\$5{,}000$ to $\\$15{,}000$ three weeks before his death. Pryce kept paying his old $\\$4.85$ premium. **Someone else paid the extra $\\$9.75$ a month.**" },
     { type: 'drill', skillId: 'decimals', count: 3, difficulty: 1, text: 'Vance pushes the rest of the checkbook stubs across the table.' },
+    { type: 'break' },
     { type: 'narration', text: 'When you look up, the singer from the poster is standing at your booth. Vivian Lark. Up close she looks tired, and younger than her voice.' },
     { type: 'line', who: 'lark', text: "You're asking about Walter Pryce? He came in Tuesdays. Tipped well. Talked about numbers like they were poetry. I liked him." },
-    { type: 'line', who: 'lark', text: "An insurance man came by last month and asked me to sign some papers for a *charity*. Said there'd be money in it for me. I told him where he could put his pen." },
+    { type: 'line', who: 'lark', text: "An insurance man found me after a show at the Sea Breeze, up at Myrtle Beach. Asked me to sign some papers for a *charity*. Said there'd be money in it for me. I told him where he could put his pen." },
     { type: 'line', who: 'vance', text: 'This insurance man have a name?' },
     { type: 'line', who: 'lark', text: "Didn't leave one. Gray suit. Smelled like peppermint." },
-    { type: 'clue', id: 'c2-lark', title: 'The singer', text: 'Vivian Lark says an insurance man in a gray suit asked her to sign papers for a "charity." She refused. He smelled of **peppermint**.' },
-    { type: 'line', who: 'vance', text: 'Bulwark Mutual opens at nine. Brush up on multiplying fractions tonight. Insurance policies are all "two-thirds of the remainder of the balance of…"' },
+    { type: 'clue', id: 'c2-lark', title: 'The singer', text: 'Vivian Lark says an insurance man in a gray suit approached her **in Myrtle Beach** and asked her to sign papers for a "charity." She refused. He smelled of **peppermint**.' },
+    { type: 'line', who: 'vance', text: "The policy was written out of Bulwark Mutual's Greenville office. That's a long drive upstate, and we leave at six. Brush up on multiplying fractions on the way. Insurance policies are all 'two-thirds of the remainder of the balance of…'" },
   ],
 };
 
@@ -86,12 +87,12 @@ const beneficiary: Chapter = {
   title: 'The Beneficiary',
   skills: ['fraction-muldiv'],
   beats: [
-    { type: 'scene', title: 'The Beneficiary', place: 'Bulwark Mutual Assurance, Canal Street · Saturday, 9:05 a.m.' },
-    { type: 'narration', text: "Bulwark's office is all frosted glass and polished brass. The agent who handled Pryce's policy meets you in the lobby, turning a peppermint tin over in his fingers." },
+    { type: 'scene', title: 'The Beneficiary', place: 'Bulwark Mutual Assurance, Main Street, Greenville · Saturday, 11:05 a.m.' },
+    { type: 'narration', text: "After four hours on the road, Greenville's Main Street looks like a postcard: textile money, brick storefronts, the Blue Ridge hazy in the distance. Bulwark's office is all frosted glass and polished brass. The agent who handled Pryce's policy meets you in the lobby, turning a peppermint tin over in his fingers." },
     { type: 'line', who: 'crane', text: "Silas Crane. A terrible thing about Mr. Pryce. A careful man, very careful. I'm afraid I can only discuss the policy with its beneficiaries, Detective." },
     { type: 'line', who: 'vance', text: 'Then you can discuss it with a judge this afternoon. Or with me, now, nicely.' },
     { type: 'narration', text: 'Crane smiles thinly and lays the policy on the counter. The payout clause reads:' },
-    { type: 'narration', text: '*The benefit of $\\$15{,}000$ shall be paid as follows: $\\frac{2}{3}$ to the Halcyon Benevolent Fund; of the remainder, $\\frac{1}{2}$ to Desmond Pryce, and the balance to Mrs. Ada Finch.*' },
+    { type: 'narration', text: '*The benefit of $\\$15{,}000$ shall be paid as follows: $\\frac{2}{3}$ to the Palmetto Benevolent Fund; of the remainder, $\\frac{1}{2}$ to Desmond Pryce, and the balance to Mrs. Ada Finch.*' },
     { type: 'notebook', skillId: 'fraction-muldiv', text: 'Vance mutters, "*Of* the remainder." Her notes: **Multiplying & Dividing Fractions.**' },
     {
       type: 'puzzle',
@@ -125,11 +126,11 @@ const beneficiary: Chapter = {
       },
     },
     { type: 'line', who: 'vance', text: 'Twenty-five hundred for the nephew. Twenty-five hundred for the housekeeper. And ten thousand for a charity nobody has heard of.' },
-    { type: 'line', who: 'you', text: 'Who runs the Halcyon Benevolent Fund, Mr. Crane?' },
+    { type: 'line', who: 'you', text: 'Who runs the Palmetto Benevolent Fund, Mr. Crane?' },
     { type: 'line', who: 'crane', text: "I really couldn't say." },
     { type: 'narration', text: 'He could. You watch his thumb worry the edge of the peppermint tin.' },
     { type: 'narration', text: "Vance asks for the Fund's paperwork. Crane produces it slowly. The director is listed as **V. Lark**. The signature looks like it was written by someone in a hurry, or someone pretending." },
-    { type: 'clue', id: 'c2-fund', title: 'The Fund', text: 'The Halcyon Benevolent Fund gets $\\frac{2}{3}$ of the payout, $\\$10{,}000$. Its director is listed as "V. Lark," but **Vivian Lark says she refused to sign.**' },
+    { type: 'clue', id: 'c2-fund', title: 'The Fund', text: 'The Palmetto Benevolent Fund gets $\\frac{2}{3}$ of the payout, $\\$10{,}000$. Its director is listed as "V. Lark," but **Vivian Lark says she refused to sign.**' },
     {
       type: 'puzzle',
       puzzle: {
@@ -145,10 +146,10 @@ const beneficiary: Chapter = {
         steps: ['$2\\tfrac{1}{2} = \\frac{5}{2}$', '$\\frac{5}{2} \\div \\frac{1}{4} = \\frac{5}{2} \\times \\frac{4}{1} = \\frac{20}{2} = 10$'],
       },
     },
-    { type: 'narration', text: "Vance turns the page. The Fund's mailing address: P.O. Box 114, Canal Street Station. Two blocks from Bulwark Mutual." },
-    { type: 'clue', id: 'c2-pobox', title: 'The post office box', text: "The Fund's mail goes to **P.O. Box 114, Canal Street Station**: two blocks from Crane's office." },
+    { type: 'narration', text: "Vance turns the page. The Fund's mailing address is **P.O. Box 114, Myrtle Beach.** A secretary mentions, helpfully, that Mr. Crane spends his weekends at the beach." },
+    { type: 'clue', id: 'c2-pobox', title: 'The post office box', text: "The Fund's mail goes to **P.O. Box 114, Myrtle Beach**, the same town where the gray-suited insurance man approached Vivian Lark. Crane spends his weekends there." },
     { type: 'drill', skillId: 'fraction-muldiv', count: 3, difficulty: 1, text: 'While Crane fetches more files, Vance quizzes you on the rest of the fine print.' },
-    { type: 'line', who: 'vance', text: "I'll get a warrant for that box. You get some sleep. Then learn percents, because banks speak nothing else." },
+    { type: 'line', who: 'vance', text: "I'll get a warrant for that box. Monday we go to the beach, and not for the sun. Learn percents, because banks speak nothing else." },
     { type: 'unlock', skillIds: ['percents'] },
   ],
 };
@@ -160,8 +161,8 @@ const commission: Chapter = {
   title: 'The Commission',
   skills: ['percents'],
   beats: [
-    { type: 'scene', title: 'The Commission', place: 'First Harbor Savings & Loan · Monday, 10:30 a.m.' },
-    { type: 'narration', text: 'The warrant comes through on Monday. P.O. Box 114 was rented eight weeks ago by an "S. Clarke." The box receives statements for one bank account: the Halcyon Benevolent Fund, opened the same week.' },
+    { type: 'scene', title: 'The Commission', place: 'Grand Strand Savings & Loan, Myrtle Beach · Monday, 10:30 a.m.' },
+    { type: 'narration', text: 'The warrant comes through on Monday. Out the bank\'s window, the Atlantic is flat and blinding. P.O. Box 114 was rented eight weeks ago by an "S. Clarke." The box receives statements for one bank account: the Palmetto Benevolent Fund, opened the same week.' },
     { type: 'line', who: 'vance', text: "The insurance money landed in the Fund's account this morning. Ten thousand. Then most of it walked right back out the door." },
     { type: 'notebook', skillId: 'percents', text: 'Vance hands you a page titled **Percents** and taps one line twice: *"is" means equals, "of" means times.*' },
     {
@@ -199,7 +200,7 @@ const commission: Chapter = {
     },
     { type: 'narration', text: 'The withdrawal slip is signed "S. Clarke." The cashier remembers a gray suit. And peppermint.' },
     { type: 'clue', id: 'c2-withdrawal', title: 'The withdrawal', text: "85% of the Fund's money, $\\$8{,}500$, was withdrawn an hour after it arrived, by **\"S. Clarke\"**: gray suit, peppermint." },
-    { type: 'narration', text: "Vance asks for one more statement: Silas Crane's personal savings account, also at First Harbor." },
+    { type: 'narration', text: "Vance asks for one more statement: Silas Crane's personal savings account, also at Grand Strand." },
     {
       type: 'puzzle',
       puzzle: {
@@ -232,8 +233,8 @@ const witnesses: Chapter = {
   title: 'Three Witnesses',
   skills: ['number-sense'],
   beats: [
-    { type: 'scene', title: 'Three Witnesses', place: "City Coroner's Office · Monday, 4:00 p.m." },
-    { type: 'narration', text: "Dr. Otto Weiss has the bedside manner of a filing cabinet. He also has Walter Pryce's teacup, in a paper evidence bag." },
+    { type: 'scene', title: 'Three Witnesses', place: "Coroner's office, Charleston · Tuesday, 9:00 a.m." },
+    { type: 'narration', text: "Dr. Otto Weiss has the bedside manner of a filing cabinet. He also has Walter Pryce's tea glass, in a paper evidence bag." },
     { type: 'line', who: 'weiss', text: 'I signed it as heart failure because his heart failed. *Why* it failed is a separate question. Pryce took digitalis for his heart. Too much of it stops the heart cold, and looks exactly like a heart attack.' },
     { type: 'line', who: 'vance', text: 'How much is too much?' },
     { type: 'line', who: 'weiss', text: 'More than a quarter of a bottle at once would do it. The lab tested what was left in the cup.' },
@@ -268,11 +269,12 @@ const witnesses: Chapter = {
         steps: ['$\\frac{1}{4} = 0.25$', '$0.375 > 0.25$, so yes: lethal.'],
       },
     },
-    { type: 'line', who: 'weiss', text: "Nobody takes thirty-seven and a half percent of a bottle by accident. Somebody put it in his tea." },
-    { type: 'narration', text: "Back at Alder Street, three people describe the night of the murder, and each speaks a different language." },
-    { type: 'line', who: 'finch', text: "Mr. Halloway left at ten, in a temper. Then Mr. Crane came by with papers for Mr. Pryce to sign. I made them a pot of tea and went up to bed. In the morning, I'd say three-eighths of the pot was gone." },
-    { type: 'line', who: 'desmond', text: "I came by at midnight to borrow money. Uncle was asleep in his chair, I thought. Forty percent of the pot was gone, easy. I didn't touch it." },
-    { type: 'line', who: 'weiss', text: '(by telephone) Going by the residue in the cup, he drank $0.35$ of the pot.' },
+    { type: 'line', who: 'weiss', text: "Nobody takes thirty-seven and a half percent of a bottle by accident. Somebody put it in his tea. Digitalis is bitter, but in a glass of sweet tea you'd never taste it." },
+    { type: 'break' },
+    { type: 'narration', text: "Back at Tradd Street, three people describe the night of the murder, and each speaks a different language." },
+    { type: 'line', who: 'finch', text: "Mr. Halloway left at ten, in a temper. Then Mr. Crane came by with papers for Mr. Pryce to sign. I left them a pitcher of sweet tea and went up to bed. In the morning, I'd say three-eighths of the pitcher was gone." },
+    { type: 'line', who: 'desmond', text: "I came by at midnight to borrow money. Uncle was asleep in his chair, I thought. Forty percent of the pitcher was gone, easy. I didn't touch it." },
+    { type: 'line', who: 'weiss', text: '(by telephone) Going by the residue in the cup, he drank $0.35$ of the pitcher.' },
     {
       type: 'puzzle',
       puzzle: {
@@ -289,7 +291,7 @@ const witnesses: Chapter = {
       },
     },
     { type: 'line', who: 'vance', text: "Three witnesses, three languages, one story. He drank the tea, and the tea was poured while Crane was in the room." },
-    { type: 'narration', text: 'One last stop: the Harbor Street pharmacy. The poison log is kept in a ledger, naturally.' },
+    { type: 'narration', text: 'One last stop: a pharmacy on King Street. The poison log is kept in a ledger, naturally.' },
     {
       type: 'puzzle',
       puzzle: {
@@ -305,7 +307,7 @@ const witnesses: Chapter = {
         steps: ['$49.6 \\approx 50$ and $0.21 \\approx 0.2$', '$50 \\times 0.2 = 10$'],
       },
     },
-    { type: 'clue', id: 'c2-pharmacy', title: 'The poison log', text: 'Two days before the murder, **"S. Clarke"** bought about $\\$10$ of digitalis at the Harbor Street pharmacy.' },
+    { type: 'clue', id: 'c2-pharmacy', title: 'The poison log', text: 'Two days before the murder, **"S. Clarke"** bought about $\\$10$ of digitalis at a King Street pharmacy.' },
     { type: 'drill', skillId: 'number-sense', count: 3, difficulty: 1, text: 'On the drive back, Vance tests whether you can switch languages at speed.' },
     {
       type: 'deduction',
@@ -317,7 +319,7 @@ const witnesses: Chapter = {
         { label: 'Silas Crane, the insurance man', correct: true, response: '"He raised the policy 200%. He paid the extra $\\$9.75$ a month himself. He invented a Fund, forged Lark\'s name, rented the box as S. Clarke, bought the digitalis, and poured the tea. He thought the numbers were his alibi. The numbers are what hang him."' },
       ],
     },
-    { type: 'narration', text: 'They arrest Silas Crane at his desk at Bulwark Mutual. He is still holding the peppermint tin.' },
+    { type: 'narration', text: 'They arrest Silas Crane that weekend on the Myrtle Beach boardwalk, in his gray suit, with the peppermint tin still in his hand.' },
     { type: 'narration', text: "Your story runs on the front page under your own byline: THE BOOKKEEPER'S LAST ENTRY. The obituary desk will have to find somebody else." },
     { type: 'line', who: 'vance', text: 'You read numbers now, {name}. Fractions, decimals, percents: the whole grammar.' },
     { type: 'line', who: 'vance', text: "The next one is going to take more than grammar. Somebody's sending the mayor letters in a code made of letters *and* numbers. $x$'s and $y$'s." },
