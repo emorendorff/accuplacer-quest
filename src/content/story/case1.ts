@@ -14,15 +14,15 @@ const ledger: Chapter = {
     { type: 'narration', text: 'Numbers are another matter. You and numbers parted ways years ago, somewhere around long division, and neither of you wrote.' },
     { type: 'break' },
     { type: 'narration', text: 'The door opens without a knock.' },
-    { type: 'line', who: 'vance', text: 'You {name}? You wrote the Pryce obituary.' },
+    { type: 'line', who: 'vance', text: "You {name}? Evening. You wrote the Pryce obituary." },
     { type: 'line', who: 'you', text: '"Walter Pryce. Bookkeeper, sixty-one, heart failure. Survived by a nephew." It was a slow week.' },
     { type: 'line', who: 'vance', text: "It wasn't his heart. Detective Roz Vance, Homicide." },
     { type: 'narration', text: 'She drops a leather ledger on your desk. It lands like a verdict.' },
     { type: 'line', who: 'vance', text: 'Pryce kept the books for Halloway Shipping. Somebody killed him the night before an audit. Everything I need is in this ledger and the letters he left. Forty pages of cramped handwriting, half of it numbers, half of it riddles.' },
     { type: 'line', who: 'you', text: 'And you need a writer.' },
-    { type: 'line', who: 'vance', text: "I need somebody who reads *carefully*. That's rarer than you'd think. I'll walk you through the arithmetic at first. By the end of this, you'll be doing it without me. Deal?" },
+    { type: 'line', who: 'vance', text: "I need somebody who reads *carefully*. That's rarer than you'd think. I'll walk you through the arithmetic at first. By the time we're done, you'll be doing it without me. Deal?" },
     { type: 'narration', text: 'You would normally say no. You would always say no to arithmetic. But a murder byline beats another obituary.' },
-    { type: 'line', who: 'vance', text: "First thing to know: numbers have grammar, same as sentences. Read them in the wrong order and they say something else entirely. Here. My notes." },
+    { type: 'line', who: 'vance', text: "First thing to know: numbers have grammar, same as sentences. Read them in the wrong order and they say something else entirely. Here. My notes. Y'all at the paper can keep a secret, I hope." },
     { type: 'notebook', skillId: 'whole-numbers', text: 'Vance tears a page from her notebook: **The Grammar of the Ledger.**' },
     { type: 'narration', text: 'She flips the ledger to the last page Pryce ever wrote on. One line is circled in red pencil.' },
     {
@@ -43,7 +43,7 @@ const ledger: Chapter = {
     { type: 'line', who: 'vance', text: 'Seventy-six. Good. Now look at the invoice Halloway Shipping sent the insurance company for that same shipment.' },
     { type: 'clue', id: 'c1-invoice', title: 'The Pier 9 invoice', text: "Halloway Shipping billed the insurer for **516 crates**. That's exactly what you'd get by reading Pryce's entry left to right, like a sentence. Either somebody can't do arithmetic… or somebody was counting on nobody checking." },
     { type: 'line', who: 'you', text: "Five hundred and sixteen. That's not a typo. That's four hundred and forty crates that never existed." },
-    { type: 'line', who: 'vance', text: "Now you're reading. There are more entries like it. Let's see if you've got the knack." },
+    { type: 'line', who: 'vance', text: "Well, look at you. Now you're reading. There are more entries like it. Let's see if you've got the knack." },
     { type: 'drill', skillId: 'whole-numbers', count: 3, difficulty: 1, text: 'Vance slides the ledger across. Three more entries to check.' },
     { type: 'line', who: 'vance', text: "One more, and it's a nasty one. Pryce's payroll note for the dock crew." },
     {
@@ -63,7 +63,7 @@ const ledger: Chapter = {
     },
     { type: 'line', who: 'vance', text: "Two hundred forty. Matches the bank withdrawal to the dollar. So Pryce's own numbers were honest. Somebody *else* did the cooking." },
     { type: 'narration', text: 'She stands and tucks the ledger under her arm.' },
-    { type: 'line', who: 'vance', text: "Pryce left a will. His housekeeper found it this morning. Tradd Street, nine sharp. Bring a pencil." },
+    { type: 'line', who: 'vance', text: "Pryce left a will. His housekeeper found it this morning. Tradd Street, nine sharp. Bring a pencil, and don't be late. Mrs. Finch is the kind who notices." },
     { type: 'unlock', skillIds: ['fraction-basics'] },
   ],
 };
@@ -77,7 +77,7 @@ const will: Chapter = {
   beats: [
     { type: 'scene', title: 'The Will', place: "Pryce's house, Tradd Street, Charleston · Wednesday, 9:00 a.m." },
     { type: 'narration', text: 'The narrow house smells of pipe tobacco and lemon polish, and a ceiling fan turns slowly over the parlor. Every book is shelved by height. Mrs. Ada Finch, the housekeeper, has set out a pitcher of sweet tea that nobody asked for.' },
-    { type: 'line', who: 'finch', text: "Mr. Pryce was a careful man. He wrote his will on a Sunday and read it back to me twice. I'm in it, you know. I'm not ashamed of that." },
+    { type: 'line', who: 'finch', text: "Mr. Pryce, God rest him, was a careful man. He wrote his will on a Sunday after church and read it back to me twice. I'm in it, you know. I'm not ashamed of that." },
     { type: 'narration', text: "A young man in an expensive coat paces by the window: Desmond Pryce, the nephew. He hasn't taken off his hat." },
     { type: 'line', who: 'desmond', text: "She's in it for a bigger cut than me, is what she is. No, wait. Uncle left me three-eighths of the savings. She gets two-fifths. Eight's bigger than five, so I'm getting more. As it should be." },
     { type: 'break' },
@@ -101,7 +101,7 @@ const will: Chapter = {
       },
     },
     { type: 'line', who: 'desmond', text: "…Point four. Well. That's just the way she's written it." },
-    { type: 'line', who: 'finch', text: "I didn't write anything, Mr. Desmond. Your uncle did." },
+    { type: 'line', who: 'finch', text: "I didn't write anything, Mr. Desmond, bless your heart. Your uncle did." },
     { type: 'narration', text: "Vance unfolds a second sheet: Pryce's own breakdown of the savings, in pencil." },
     {
       type: 'puzzle',
@@ -138,7 +138,7 @@ const shares: Chapter = {
   beats: [
     { type: 'scene', title: 'The Shares', place: 'Halloway Shipping, East Bay Street, Charleston · Thursday, 2:15 p.m.' },
     { type: 'narration', text: "Leon Halloway's office looks out over the wharves on the Cooper River, and his desk is the size of a rowboat. He smiles like a man who has rehearsed it in a mirror." },
-    { type: 'line', who: 'halloway', text: "Terrible business about Walter. Thirty years he kept my books. Ask me anything, Detective. I've nothing to hide." },
+    { type: 'line', who: 'halloway', text: "Terrible business about Walter. Thirty years he kept my books. Ask anybody on East Bay Street: Leon Halloway has nothing to hide, Detective." },
     { type: 'line', who: 'vance', text: 'Who owns Halloway Shipping, Mr. Halloway?' },
     { type: 'line', who: 'halloway', text: "I own a half. Walter owned a third. The rest belongs to our investors. A half plus a third, that's two-fifths between Walter and me, so the investors hold three-fifths. They get the lion's share of every quarter. I'm a generous man." },
     { type: 'narration', text: 'He says it smoothly. Too smoothly. You write down every word: *one half. One third. Two-fifths.*' },
@@ -178,7 +178,7 @@ const shares: Chapter = {
     { type: 'line', who: 'vance', text: "One-sixth. And he's been telling them they own three-fifths, so they've been signing off on three-fifths of the *expenses*. Every quarter. For years. Pryce found it." },
     { type: 'clue', id: 'c1-shares', title: 'The shares', text: 'Halloway told investors they owned $\\frac{3}{5}$ of the company by "adding" $\\frac{1}{2} + \\frac{1}{3} = \\frac{2}{5}$. The real figure is $\\frac{1}{6}$. He\'s had them paying for expenses that were his.' },
     { type: 'line', who: 'halloway', text: '(dabbing his forehead) Fractions were never my strong suit, Detective. Walter handled all of that.' },
-    { type: 'line', who: 'vance', text: "Walter's dead. Funny how that works out." },
+    { type: 'line', who: 'vance', text: "Walter's dead, Mr. Halloway. Funny how that works out." },
     { type: 'narration', text: "On the way out, Vance palms a timesheet from Halloway's desk drawer: his hours logged on the night Pryce died." },
     {
       type: 'puzzle',
@@ -210,7 +210,7 @@ const shares: Chapter = {
     { type: 'break' },
     { type: 'narration', text: 'At two in the morning, your phone rings.' },
     { type: 'line', who: 'vance', text: "Halloway's alibi checks out for the murder. He was cooking the books, sure. But he didn't kill Pryce. Somebody else wanted him quiet. And Pryce had a life insurance policy that paid out on Monday. A big one." },
-    { type: 'line', who: 'vance', text: 'Get some sleep. Then learn your decimals and percents. Insurance men speak nothing else.' },
+    { type: 'line', who: 'vance', text: "Get some sleep. Then learn your decimals and percents. Insurance men don't speak anything else, Lord help us." },
     { type: 'unlock', skillIds: ['decimals', 'fraction-muldiv'] },
   ],
 };
