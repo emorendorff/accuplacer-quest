@@ -48,7 +48,7 @@ export function Desk({ onStory, onBoard, onReview, onCasebook, onSkill }: Props)
           {save.completedChapters.length > 0 && (
             <div className="chapter-list">
               {CHAPTERS.filter((c) => save.completedChapters.includes(c.id)).map((c) => (
-                <button key={c.id} className="link small" onClick={() => onStory(c)}>Reread ch. {c.number}: {c.title}</button>
+                <button key={c.id} className="link small" onClick={() => onStory(c)}>Reread {c.caseTitle.split(':')[0]}, ch. {c.number}: {c.title}</button>
               ))}
             </div>
           )}

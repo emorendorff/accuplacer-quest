@@ -68,7 +68,7 @@ strong { font-weight: 600; }
 .btn.primary { background: var(--amber); border-color: var(--amber); color: #1a1408; }
 .btn.primary:hover:not(:disabled) { background: #ecb95e; }
 .btn.ghost { background: transparent; }
-.btn.small { padding: 6px 12px; font-size: 0.75rem; }
+.btn.small { padding: 6px 12px; font-size: 0.75rem; white-space: nowrap; flex: none; }
 .link { background: none; border: none; color: var(--amber); font-family: var(--typewriter); font-size: 0.8rem; cursor: pointer; padding: 4px 0; }
 .link:hover { text-decoration: underline; }
 .link.muted { color: var(--muted); }

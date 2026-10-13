@@ -1,6 +1,6 @@
 import type { Difficulty, Option, SkillId } from '../../engine/question';
 
-export type CharacterId = 'you' | 'vance' | 'finch' | 'desmond' | 'halloway';
+export type CharacterId = 'you' | 'vance' | 'finch' | 'desmond' | 'halloway' | 'crane' | 'lark' | 'weiss';
 
 export interface Puzzle {
   skillId: SkillId;

@@ -167,7 +167,7 @@ function BeatView({ beat, live, vars, onOpenNotebook, onResolved }: BeatProps) {
     case 'drill':
       return live ? <DrillBeat beat={beat} onResolved={onResolved} /> : <SolvedBeat prompt={beat.text} />;
     case 'deduction':
-      return <DeductionBeat beat={beat} live={live} onResolved={onResolved} />;
+      return <DeductionBeat beat={beat} live={live} vars={vars} onResolved={onResolved} />;
   }
 }
 
@@ -219,7 +219,7 @@ function DrillBeat({ beat, onResolved }: { beat: Beat & { type: 'drill' }; onRes
   );
 }
 
-function DeductionBeat({ beat, live, onResolved }: { beat: Beat & { type: 'deduction' }; live: boolean; onResolved: () => void }) {
+function DeductionBeat({ beat, live, vars, onResolved }: { beat: Beat & { type: 'deduction' }; live: boolean; vars: Record<string, string>; onResolved: () => void }) {
   const [tried, setTried] = useState<number[]>([]);
   const solvedIdx = beat.options.findIndex((o) => o.correct);
   const solved = !live || tried.includes(solvedIdx);
@@ -227,7 +227,7 @@ function DeductionBeat({ beat, live, onResolved }: { beat: Beat & { type: 'deduc
   return (
     <div className="beat-deduction">
       <div className="kicker">Deduction</div>
-      <MathText text={beat.prompt} />
+      <MathText text={beat.prompt} vars={vars} />
       <div className="deduction-options">
         {beat.options.map((o, i) => (
           <button
